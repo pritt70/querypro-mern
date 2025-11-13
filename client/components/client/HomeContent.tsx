@@ -23,7 +23,7 @@ export default function HomeContent() {
       />
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-[1650px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Enquiry darkMode={darkMode} />
       </main>
 
@@ -32,4 +32,3 @@ export default function HomeContent() {
     </div>
   );
 }
-

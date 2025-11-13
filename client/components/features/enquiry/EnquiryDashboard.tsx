@@ -24,13 +24,10 @@ const EnquiryDashboard: React.FC<ThemeProps> = ({ darkMode = false }) => {
     message: "",
     _id: "",
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(false);
 
-  /**
-   * Fetches enquiries from API
-   */
   const loadEnquiries = useCallback(async (): Promise<void> => {
-    setIsLoading(true);
+    setLoader(true);
     try {
       const response = await fetchEnquiries();
       if (response.status && response.enquiry) {
@@ -39,27 +36,18 @@ const EnquiryDashboard: React.FC<ThemeProps> = ({ darkMode = false }) => {
     } catch (error) {
       console.error("Error fetching enquiries:", error);
     } finally {
-      setIsLoading(false);
+      setLoader(false);
     }
   }, []);
 
-  /**
-   * Handles enquiry list refresh
-   */
   const handleEnquiryUpdate = useCallback((): void => {
     loadEnquiries();
   }, [loadEnquiries]);
 
-  /**
-   * Handles form data edit
-   */
   const handleEdit = useCallback((data: EnquiryFormData): void => {
     setFormData(data);
   }, []);
 
-  /**
-   * Initial load
-   */
   useEffect(() => {
     loadEnquiries();
   }, [loadEnquiries]);
@@ -93,35 +81,14 @@ const EnquiryDashboard: React.FC<ThemeProps> = ({ darkMode = false }) => {
         />
 
         {/* Enquiry Table */}
-        <div className="min-w-0">
-          {isLoading ? (
-            <div
-              className={`rounded-2xl shadow-xl border p-12 text-center ${
-                darkMode
-                  ? "bg-gray-800 border-gray-700"
-                  : "bg-white border-gray-200"
-              }`}
-            >
-              <div className="flex flex-col items-center space-y-3">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                <p
-                  className={`text-sm ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  Loading enquiries...
-                </p>
-              </div>
-            </div>
-          ) : (
-            <EnquiryDataTable
-              darkMode={darkMode}
-              data={enquiryList}
-              onRefresh={handleEnquiryUpdate}
-              onEdit={handleEdit}
-            />
-          )}
-        </div>
+
+        <EnquiryDataTable
+          loader={loader}
+          darkMode={darkMode}
+          data={enquiryList}
+          onRefresh={handleEnquiryUpdate}
+          onEdit={handleEdit}
+        />
       </div>
     </div>
   );

@@ -3,7 +3,11 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { ThemeProps, EnquiryItem, EnquiryFormData } from "@/types/enquiry.types";
+import {
+  ThemeProps,
+  EnquiryItem,
+  EnquiryFormData,
+} from "@/types/enquiry.types";
 import { deleteEnquiry, fetchEnquiryById } from "@/utils/api.utils";
 import { TOAST_CONFIG } from "@/constants/api.constants";
 
@@ -11,15 +15,12 @@ interface EnquiryDataTableProps extends ThemeProps {
   data: EnquiryItem[];
   onRefresh: () => void;
   onEdit: (data: EnquiryFormData) => void;
+  loader: boolean;
 }
 
-/**
- * EnquiryDataTable Component
- * Data table component for displaying and managing enquiries
- * Industry-standard table component with search and CRUD operations
- */
 const EnquiryDataTable: React.FC<EnquiryDataTableProps> = ({
   darkMode = false,
+  loader,
   data,
   onRefresh,
   onEdit,
@@ -380,7 +381,7 @@ const EnquiryDataTable: React.FC<EnquiryDataTableProps> = ({
 
         {/* Mobile Card View */}
         <div className="md:hidden space-y-4">
-          {filteredData.length > 0 ? (
+          {!loader && filteredData.length > 0 ? (
             filteredData.map((item, index) => (
               <div
                 key={item._id}
@@ -548,5 +549,3 @@ const EnquiryDataTable: React.FC<EnquiryDataTableProps> = ({
 };
 
 export default EnquiryDataTable;
-
-

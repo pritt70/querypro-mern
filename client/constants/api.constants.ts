@@ -4,7 +4,7 @@
  */
 
 export const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "http://192.168.0.105:10000",
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "https://querypro-mern.onrender.com",
   ENDPOINTS: {
     LIST: "/api/enquiry/enquirylist",
     CREATE: "/api/enquiry/enquiryinsert",

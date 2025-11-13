@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
-const API_BASE_URL = "http://192.168.0.105:10000";
+const API_BASE_URL = "https://querypro-mern.onrender.com";
 
 interface FormData {
   name: string;
